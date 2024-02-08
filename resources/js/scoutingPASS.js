@@ -851,6 +851,11 @@ function getData(dataFormat) {
       str.push(fd.get(thisKey))
     });
     return str.join("\t")
+  } else if (dataFormat == "vc") {
+    Array.from(fd.keys()).forEach(thisKey => {
+      str.push(fd.get(thisKey))
+    });
+    return str.join(",")
   } else {
     return "unsupported dataFormat"
   }
