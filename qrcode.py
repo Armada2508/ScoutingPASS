@@ -1,5 +1,7 @@
 import glob
+import subprocess
 import time
+import winsound
 
 import cv2
 import pyautogui
@@ -19,6 +21,7 @@ print("Camera stream opened")
 def addToSheets(text):
     pyperclip.copy(text + "\n")
     pyautogui.hotkey('ctrl', 'v')
+    # winsound.Beep(2500, 500)
  
 prev_codes = []
 escPressed = True
@@ -27,6 +30,30 @@ def onEscPressed(e):
     print("Test")
     global escPressed
     escPressed = True
+
+def sendToBluetoothDevice(device_name):
+    print("Sending file to device...")
+    pyperclip.copy('TestSheet.xlsx')
+    subprocess.Popen("cmd /c start fsquirt",shell=True)
+    time.sleep(2)
+    pyautogui.hotkey('s')
+    time.sleep(1)
+    pyautogui.hotkey('down')
+    time.sleep(1)
+    pyautogui.hotkey(device_name[0])
+    time.sleep(0.5)
+    pyautogui.hotkey('enter')
+    time.sleep(1)
+    pyautogui.hotkey('enter')
+    time.sleep(2)
+    pyautogui.typewrite('TestSheet.xlsx')
+    time.sleep(1)
+    pyautogui.hotkey('enter')
+    time.sleep(1)
+    pyautogui.hotkey('tab')
+    time.sleep(1.5)
+    pyautogui.hotkey('enter')
+    time.sleep(5)
 
 while True:
 	qrstr = ""
@@ -45,8 +72,13 @@ while True:
 		camera.release()
 		break
 	addToSheets(qrcode)
-	prev_codes = qrcode
 	
+	prev_codes = qrcode
+
+device_name = "Oneplus"	
+sendToBluetoothDevice(device_name)
+ 
+ ##############################
 
 def fileImgRead(filePath):
 	def readThroughFolder(filePath):
