@@ -1,6 +1,6 @@
 var config_data = `
 {
-  "dataFormat": "vc",
+  "dataFormat": "kvs",
   "title": "Scouting PASS 2024",
   "page_title": "Crescendo",
   "checkboxAs": "10",
@@ -15,7 +15,7 @@ var config_data = `
     { "name": "Event",
       "code": "e",
       "type": "event",
-      "defaultValue": "2023tnkn",
+      "defaultValue": "Grand Forks",
       "required": "true"
     },
     { "name": "Match Level",
@@ -24,7 +24,7 @@ var config_data = `
       "choices": {
         "p": "Practice<br>",
         "qm": "Quals<br>",
-        "sf": "Semifinals<br>"
+        "sf": "Semi-Finals<br>"
       },
       "defaultValue": "qm",
       "required": "true"
@@ -62,6 +62,14 @@ var config_data = `
       "clickRestriction": "one",
       "allowableResponses": "1 12 13 24 25 36 37 48 49 60 61 72",
       "shape": "circle 5 black red true"
+    },
+    { "name": "Direction",
+      "code": "d",
+      "type": "radio",
+      "choices": {
+        "l": "Left",
+        "r": "Right"
+      }
     }
   ],
   "auton": [
@@ -106,7 +114,7 @@ var config_data = `
   "endgame": [
     { "name": "Stage Timer",
       "code": "dt",
-      "type": "timer"
+      "type": "text"
     },
     { "name": "Final Status",
       "code": "fs",
@@ -131,9 +139,9 @@ var config_data = `
       "code": "ds",
       "type": "radio",
       "choices": {
-        "n": "Not Effective<br>",
-        "a": "Average<br>",
-        "v": "Very Effective<br>",
+        "1": "Not Effective<br>",
+        "2": "Average<br>",
+        "3": "Very Effective<br>",
         "x": "Not Observed"
       },
       "defaultValue": "x"
@@ -142,10 +150,10 @@ var config_data = `
       "code": "dr",
       "type": "radio",
       "choices": {
-        "b": "Below Average<br>",
-        "a": "Average<br>",
-        "g": "Good<br>",
-        "e": "Excellent<br>",
+        "1": "Below Average<br>",
+        "2": "Average<br>",
+        "3": "Good<br>",
+        "4": "Excellent<br>",
         "x": "Did not play defense"
       },
       "defaultValue": "x"

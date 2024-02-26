@@ -705,6 +705,54 @@ function configure() {
     }
   }
 
+  function configQR() {
+    const con_img = new Image()
+    con_img.src = 'resources/images/carter_pog.png'
+    con_img.alt = 'Congrats Image'
+    con_img.id = 'congrats_img'
+    con_img.height = 500
+    document.getElementById('congrats').appendChild(con_img)
+    let scale = 0.5
+    let growing = true
+    var startTime
+    //Change these to last page if needed
+    document.getElementById('nextButton1').addEventListener('click', onNextClick)
+    document.getElementById('nextButton2').addEventListener('click', onNextClick)
+    document.getElementById('nextButton9').addEventListener('click', onNextClick)
+    document.getElementById('nextButton10').addEventListener('click', onNextClick)
+    function onNextClick() {
+      scale = 0.5
+      startTime = Date.now()
+      changeImageAfterDelay()
+    }
+    function changeImageAfterDelay() {
+      con_img.style.display = ""
+      let qrElement = document.getElementById('qrcode')
+      qrElement.style.display = 'none'
+      pulseImage()
+      setTimeout(() => {
+        con_img.style.display = 'none'
+        qrElement.style.display = 'block'
+      }, 2000)
+    }
+    function pulseImage() {
+      if (growing) {
+        scale += 0.005
+      } else {
+        scale -= 0.005
+      }
+      if (scale >= 1.2) {
+        growing = false
+      } else if (scale <= 0.8) {
+        growing = true
+      }
+      con_img.style.transform = `scale(${scale})`
+      if (Date.now() - startTime < 2000){
+        requestAnimationFrame(pulseImage)
+      }
+    }
+  } 
+
   if (mydata.hasOwnProperty('checkboxAs')) {
     // Supported modes
     // YN - Y or N
@@ -855,6 +903,7 @@ function getData(dataFormat) {
     Array.from(fd.keys()).forEach(thisKey => {
       str.push(fd.get(thisKey))
     });
+    configQR();
     return str.join(",")
   } else {
     return "unsupported dataFormat"

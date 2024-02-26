@@ -1,6 +1,6 @@
 var config_data = `
 {
-  "dataFormat": "tsv",
+  "dataFormat": "kvs",
   "title": "Scouting PASS 2024",
   "page_title": "Crescendo",
   "pitConfig": "true",
@@ -9,8 +9,17 @@ var config_data = `
       "code": "t",
       "type": "number"
     },
-    { "name": "Width",
+    { "name": "Cool Robot Name",
+      "code": "crn",
+      "type": "text"
+    },
+    { "name": "Width (inches)",
       "code": "wid",
+      "type": "number",
+      "defaultValue": "0"
+    },
+    { "name": "Length (inches)",
+      "code": "len",
       "type": "number",
       "defaultValue": "0"
     },
@@ -37,18 +46,11 @@ var config_data = `
       "size": 20,
       "maxSize": 50
     },
-    { "name": "Swerve Ratio",
-      "code": "sr",
-      "type": "radio",
-      "choices": {
-        "1": "L1 (8.14:1)<br>",
-        "2": "L2 (6.75:1)<br>",
-        "3": "L3 (6.12:1)<br>",
-        "4": "L4 (5.14:1)<br>",
-        "o": "Other ratio (put in comments)<br>",
-        "x": "Not Swerve"
-      },
-      "defaultValue":"x"
+    { "name": "Gear Ratio",
+      "code": "gr",
+      "type": "text",
+      "size": 20,
+      "maxSize": 50
     },
     { "name": "Drivetrain Motor",
       "code": "mot",
@@ -56,30 +58,28 @@ var config_data = `
       "choices": {
         "n": "Neo<br>",
         "f": "Falcon<br>",
-        "c": "CIM<br>",
-        "x": "Other<br>"
+        "c": "CIM<br>"
       },
-      "defaultValue":"x"
+      "defaultValue":"n"
     },
-    { "name": "# of Batteries",
-      "code": "nob",
-      "type": "number"
+    { "name": "Score Areas",
+      "code": "sa",
+      "type": "radio",
+      "choices": {
+        "s": "Speaker<br>",
+        "a": "Amp<br>",
+        "b": "Both<br>",
+        "n": "None<br>"
+      },
+      "defaultValue": "s"
     },
-    { "name": "Floor pickup Notes",
-      "code": "fpu",
+    { "name": "Good Driver (checked = yes)",
+      "code": "gdr",
       "type": "bool"
     },
-    { "name": "Autos",
-      "code": "aut",
-      "type": "text",
-      "size": 20,
-      "maxSize": 250
-    },
-    { "name": "Scouting Method /<br>Program (ScoutingPASS?)",
-      "code": "sct",
-      "type": "text",
-      "size": 20,
-      "maxSize": 250
+    { "name": "Good Defense (checked = yes)",
+      "code": "gde",
+      "type": "bool"
     },
     { "name": "Comments",
       "code": "co",
@@ -89,10 +89,70 @@ var config_data = `
     }
   ],
   "auton": [
+    { "name": "Leave Starting Zone",
+      "code": "al",
+      "type": "bool"
+    },
+    { "name": "Amp Scores",
+      "code": "aas",
+      "type": "counter"
+    },
+    { "name": "Speaker Scores",
+      "code": "ass",
+      "type": "counter"
+    }
   ],
   "teleop": [
+    { "name": "Amp Scores",
+      "code": "tas",
+      "type": "counter"
+    },
+    { "name": "Speaker Scores",
+      "code": "tss",
+      "type": "counter"
+    },
+    { "name": "Times Amplified",
+      "code": "tta",
+      "type": "counter"
+    },
+    { "name": "Pickup From",
+      "code": "tpu",
+      "type": "radio",
+      "choices": {
+        "s": "Source<br>",
+        "f": "Floor<br>",
+        "b": "Both<br>",
+        "x": "Not Attempted"
+      },
+      "defaultValue": "x"
+    },
+    { "name": "Auto Start Position",
+      "code": "as",
+      "type": "clickable_image",
+      "filename": "2024/field_image.png",
+      "shape": "circle 5 black red true"
+    }
   ],
   "endgame": [
+    { "name": "Climb Time",
+      "code": "dt",
+      "type": "text"
+    },
+    { "name": "Final Status",
+      "code": "fs",
+      "type":"radio",
+      "choices": {
+        "c": "Can't Climb<br>",
+        "s": "Single Climb<br>",
+        "d": "Double Climb<br>",
+        "o": "Other<br>"
+      },
+      "defaultValue": "o"
+    },
+    { "name": "Note in Trap",
+      "code": "nit",
+      "type": "bool"
+    }
   ],
   "postmatch": [
   ]
